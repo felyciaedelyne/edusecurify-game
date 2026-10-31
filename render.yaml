@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: edusecurity
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn server:app --workers 2 --threads 4 --timeout 60
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.10
+      - key: ADMIN_TOKEN
+        generateValue: true
